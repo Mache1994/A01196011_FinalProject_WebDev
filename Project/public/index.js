@@ -87,10 +87,64 @@ function displayResultsList2(data){
 
 			<button type="button" id="${data.User[i].user}N1" onclick="ReviewThis(${i});" > 
 			Review his CV </button>
+			<br>
+
+			<textarea rows = "5" cols = "50" name = "description" id="${data.User[i].user}TxT">
+              Write here your review here for ${data.User[i].user}
+           </textarea>
+			<button type="button" id="${data.User[i].user}BTN2" onclick="SendReview(${i});" > 
+			Send Review </button>
+
 			<br>`);
 	}
 	
 }
+
+function SendReview(userT)
+{
+
+let url = '/cvusers/api/UpdateFieldTips/';
+	let settings = {
+		method : 'POST',
+		headers : {
+			"Content-Type" : "application/json"
+		},
+		body : JSON.stringify({
+
+	user : listOfUsers.User[userT].user,
+	NewTip : document.getElementById(`${listOfUsers.User[userT].user}TxT`).value
+		})
+	};
+
+
+	fetch(url, settings)
+		.then(response => {
+			if(response.ok){
+				return response.json();
+			}
+			else{
+				throw Error("Something went wrong.");
+			}
+		})		
+		.then(responseJSON => {
+
+			console.log(responseJSON)
+			alert("New Tip Added")
+			 
+		})
+		.catch(err => {
+
+			console.log(err);
+		});
+
+		LoggedIn(LoggedUser.User.user)
+
+}
+
+
+
+
+
 function ReviewThis(userT)
 {
 	

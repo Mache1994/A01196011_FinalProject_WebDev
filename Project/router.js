@@ -346,6 +346,30 @@ router.post('/CreateNewCV/', (req, res, next) => {
 		
 });
 
+//Update a field
+
+router.post('/UpdateFieldTips/', (req, res, next) => {
+	
+
+	ListUser.updateField(req.body.user,{"Tips" : req.body.NewTip})
+		.then(User => {
+			res.status(201).json({
+				message : "Updated Tip",
+				status : 201,
+				User : User
+			});
+		})
+		.catch( err => {
+			res.status(500).json({
+				message : `Not Found.`,
+				status : 500
+			});
+			return next();
+		});
+
+});
+
+
 //New User!!
 router.post('/NewUser/', (req, res, next) => {
 	
