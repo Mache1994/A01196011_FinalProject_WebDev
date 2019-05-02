@@ -346,7 +346,7 @@ router.post('/CreateNewCV/', (req, res, next) => {
 		
 });
 
-//Update a field
+//Update tips
 
 router.post('/UpdateFieldTips/', (req, res, next) => {
 	
@@ -368,6 +368,73 @@ router.post('/UpdateFieldTips/', (req, res, next) => {
 		});
 
 });
+
+
+//Delete
+
+router.delete('/Delete/', (req, res, next) => {
+	
+
+
+		ListUser.delete(req.body.Data.User.user,req.body.Data)
+			.then(User => {
+			res.status(201).json({
+				message : "Incremented the cuantity",
+				status : 201,
+				User : User
+			});
+		})
+		.catch( err => {
+			res.status(500).json({
+				message : `Not Found.`,
+				status : 500
+			});
+			return next();
+		});
+
+
+		ListUser.decrese(req.body.Data.User.user)
+			.then(User => {
+			res.status(201).json({
+				message : "Incremented the cuantity",
+				status : 201,
+				User : User
+			});
+		})
+		.catch( err => {
+			res.status(500).json({
+				message : `Not Found.`,
+				status : 500
+			});
+			return next();
+		});
+		
+
+});
+
+// update primary 
+
+router.post('/UpdateFieldPrimary/', (req, res, next) => {
+	
+
+	ListUser.updateFieldPrimary(req.body.user,{"PrimaryCV" : req.body.PrimaryCV})
+		.then(User => {
+			res.status(201).json({
+				message : "Updated Tip",
+				status : 201,
+				User : User
+			});
+		})
+		.catch( err => {
+			res.status(500).json({
+				message : `Not Found.`,
+				status : 500
+			});
+			return next();
+		});
+
+});
+
 
 
 //New User!!

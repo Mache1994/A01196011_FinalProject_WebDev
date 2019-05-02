@@ -71,6 +71,51 @@ const ListUser = {
 			});
 	},
 
+	updateFieldPrimary : function(userT, newData){
+		
+		return users.updateOne({user : userT}, { $set: newData }, { new: true })
+			.then(user => {
+				if (user){
+					return user;
+				}
+				throw new Err("Sport not found");
+			})
+			.catch(err =>{
+				throw new Error(err);
+			});
+	},
+
+	delete : function(userT, data){
+
+		return users.replaceOne({user : userT}, data)
+			.then(user => {
+				if (user){
+					return user;
+				}
+				throw new Err("Sport not found");
+			})
+			.catch(err =>{
+				throw new Error(err);
+			});
+		
+
+
+	},
+
+	decrese : function(userT, newData){
+
+		return users.updateOne({user : userT},{ $inc: {cantCv: -1 } })
+			.then(user => {
+				if (user){
+					return user;
+				}
+				throw new Err("Sport not found");
+			})
+			.catch(err =>{
+				throw new Error(err);
+			});
+	},
+
 	increment : function(userT, newData){
 
 		return users.updateOne({user : userT},{ $inc: {cantCv: 1 } })
